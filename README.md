@@ -1,1 +1,1 @@
-# wordpress-gutenburg-block-ajax-load-more
+# Ajax load more with gutenburg block
