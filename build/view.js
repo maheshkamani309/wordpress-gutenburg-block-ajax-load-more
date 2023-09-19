@@ -1,0 +1,1 @@
+console.log("Hello World! (from ajax-load-more-ajax-load-more block)");

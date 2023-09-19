@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ajax-load-more/ajax-load-more",
+	"version": "0.1.0",
+	"title": "Ajax Load More",
+	"category": "widgets",
+	"icon": "post",
+	"description": "Load posts with load more and infinate scroll",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "ajax-load-more",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"postType": {
+			"type": "string",
+			"default": "post"
+		},
+		"postPerPage": {
+			"type": "number",
+			"default": 3
+		}
+	}
+}
