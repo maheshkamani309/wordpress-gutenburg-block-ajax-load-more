@@ -5,8 +5,63 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-ajax-load-more-ajax-load-more {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.mak-ajax-load-more {
+
+	.mak-ajax-load-more-posts-list.grid {
+		list-style: none;
+		margin: 0;
+		padding: 20px;
+		gap: .5em;
+		display: grid;
+
+		@for $i from 2 through 4 {
+			&.columns-#{ $i } {
+				grid-template-columns: repeat(#{ $i }, 1fr);
+			}
+		}
+
+		li {
+
+			img {
+				max-width: 100%;
+				border-radius: 5px;
+			}
+
+			h2 {
+				margin-top: 0;
+				font-size: 20px;
+			}
+		}
+
+	}
+
+	.mak-ajax-load-more-posts-list.list {
+		list-style: none;
+		margin: 0;
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		column-gap: 20px;
+
+		li {
+			column-gap: 20px;
+			display: flex;
+			margin-bottom: 20px;
+
+			img {
+				max-width: 100%;
+				border-radius: 5px;
+				width: 200px;
+			}
+
+			h2 {
+				margin-top: 0;
+				font-size: 30px;
+				display: inline-flex;
+				vertical-align: top;
+			}
+		}
+
+	}
 }

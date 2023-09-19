@@ -44,7 +44,7 @@ import { RawHTML } from '@wordpress/element';
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { postType, postPerPage } = attributes;
+	const { postType, postPerPage, displayThumbnail, listType, columns } = attributes;
 
 	const { postTypes, posts } = useSelect(
 		(select) => {
@@ -60,36 +60,96 @@ export default function Edit({ attributes, setAttributes }) {
 				'per_page': postPerPage,
 				'_embed': true
 			});
-
 			return {
 				postTypes: postTypes,
 				posts: posts
 			}
 		},
-		[postType]
+		[postType, postPerPage]
 	);
-
+	console.log(listType)
 	return (
-		<><InspectorControls>
-			<PanelBody title={__('Post Type', 'ajax-load-more')}>
-				<SelectControl
-					label={__('Select Post Type')}
-					value={postType}
-					options={postTypes}
-					onChange={(value) => {
-						setAttributes({
-							postType: value,
-						});
-					}}
-				/>
-			</PanelBody>
-		</InspectorControls>
+		<>
+			<InspectorControls>
+				<PanelBody title={__('Post Type', 'ajax-load-more')}>
+					<SelectControl
+						label={__('Select Post Type')}
+						value={postType}
+						options={postTypes}
+						onChange={(value) => {
+							setAttributes({
+								postType: value,
+							});
+						}}
+					/>
+					<SelectControl
+						label={__('View Type', 'ajax-load-more')}
+						value={listType}
+						options={
+							[
+								{ value: 'list', label: __('List', 'ajax-load-more') },
+								{ value: 'grid', label: __('Grid', 'ajax-load-more') }
+							]
+						}
+						onChange={(value) => {
+							setAttributes({
+								listType: value,
+							});
+						}}
+					/>
+					{
+
+						listType == 'grid' ? (
+							<RangeControl
+								label={__('Number of Columns', 'ajax-load-more')}
+								value={columns}
+								onChange={(value) =>
+									setAttributes({ columns: value })
+								}
+								min={1}
+								max={4}
+								required
+							/>
+						) : ('')
+					}
+					<QueryControls
+						numberOfItems={postPerPage}
+						onNumberOfItemsChange={(value) =>
+							setAttributes({ postPerPage: value })
+						}
+						minItems={1}
+						maxItems={20}
+					/>
+
+					<PanelRow>
+						<ToggleControl
+							label={__('Show Featured Image', 'ajax-load-more')}
+							checked={displayThumbnail}
+							onChange={() =>
+								setAttributes({ displayThumbnail: !displayThumbnail })
+							}
+						/>
+					</PanelRow>
+
+				</PanelBody>
+			</InspectorControls>
 			<div {...useBlockProps()}>
 				<div className='mak-ajax-load-more'>
-					<ul className={`mak-ajax-load-more-posts-list`}>
+					<ul className={`mak-ajax-load-more-posts-list  ${listType} ${listType == 'grid' ? 'columns-' + columns : ''}`}>
 						{posts && posts.map((post) => {
 							return (
 								<li key={post.id}>
+									{
+										displayThumbnail &&
+										post._embedded &&
+										post._embedded['wp:featuredmedia'] &&
+										post._embedded['wp:featuredmedia'][0] &&
+										<img
+											className='wp-block-author-box-ajax-load-more__post-thumbnail'
+											src={post._embedded['wp:featuredmedia'][0].source_url}
+											alt={post._embedded['wp:featuredmedia'][0].alt_text}
+										/>
+									}
 									<h2>
 										<a href={post.link}>
 											{
@@ -108,10 +168,6 @@ export default function Edit({ attributes, setAttributes }) {
 						})}
 					</ul>
 				</div>
-				{__(
-					postType,
-					'ajax-load-more'
-				)}
 			</div>
 		</>
 	);

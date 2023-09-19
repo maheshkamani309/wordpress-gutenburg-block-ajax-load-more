@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "Ajax Load More",
   "category": "widgets",
-  "icon": "post",
+  "icon": "universal-access-alt",
   "description": "Load posts with load more and infinate scroll",
   "example": {},
   "supports": {
@@ -25,6 +25,18 @@
     "postPerPage": {
       "type": "number",
       "default": 3
+    },
+    "displayThumbnail": {
+      "type": "boolean",
+      "default": true
+    },
+    "listType": {
+      "type": "string",
+      "default": "list"
+    },
+    "columns": {
+      "type": "number",
+      "default": 2
     }
   }
 }
