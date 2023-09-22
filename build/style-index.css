@@ -1,1 +1,66 @@
-.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid{display:grid;gap:.5em;list-style:none;margin:0;padding:20px}.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid.columns-2{grid-template-columns:repeat(2,1fr)}.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid.columns-3{grid-template-columns:repeat(3,1fr)}.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid.columns-4{grid-template-columns:repeat(4,1fr)}.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid li img{border-radius:5px;max-width:100%}.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid li h2{font-size:20px;margin-top:0}.mak-ajax-load-more .mak-ajax-load-more-posts-list.list{-moz-column-gap:20px;column-gap:20px;display:flex;flex-direction:column;justify-content:center;list-style:none;margin:0;padding:20px}.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li{-moz-column-gap:20px;column-gap:20px;display:flex;margin-bottom:20px}.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li img{border-radius:5px;max-width:100%;width:200px}.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li h2{display:inline-flex;font-size:30px;margin-top:0;vertical-align:top}
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  gap: 0.5em;
+  display: grid;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid.columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid.columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid.columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid li .malm-thumbnail {
+  max-width: 100%;
+  border-radius: 5px;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.grid li h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.list {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li {
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  display: flex;
+  margin-bottom: 20px;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li .malm-thumbnail {
+  max-width: 100%;
+  border-radius: 5px;
+  width: 200px;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li .malm-thumbnail img {
+  max-width: 100%;
+  height: auto;
+}
+.mak-ajax-load-more .mak-ajax-load-more-posts-list.list li .malm-content h2 {
+  margin-top: 0;
+  font-size: 30px;
+  display: inline-flex;
+  vertical-align: top;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -30,6 +30,10 @@
 			"type": "boolean",
 			"default": true
 		},
+		"displayDates": {
+			"type": "boolean",
+			"default": true
+		},
 		"listType": {
 			"type": "string",
 			"default": "list"
