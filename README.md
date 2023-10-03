@@ -1,1 +1,1 @@
-# Ajax load more with gutenburg block
+# Ajax load more with Gutenburg block
