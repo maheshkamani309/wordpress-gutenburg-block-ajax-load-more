@@ -34,6 +34,10 @@
 			"type": "boolean",
 			"default": true
 		},
+		"displayExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
 		"listType": {
 			"type": "string",
 			"default": "list"
@@ -41,6 +45,10 @@
 		"columns": {
 			"type": "number",
 			"default": 2
+		},
+		"infinateScroll": {
+			"type": "boolean",
+			"default": false
 		}
 	}
 }

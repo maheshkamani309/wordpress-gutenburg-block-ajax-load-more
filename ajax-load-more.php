@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:       Ajax Load More
  * Description:       Load posts with load more and infinate scroll
@@ -21,7 +22,42 @@
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function ajax_load_more_ajax_load_more_block_init() {
-	register_block_type( __DIR__ . '/build' );
+function ajax_load_more_ajax_load_more_block_init()
+{
+	register_block_type(__DIR__ . '/build');
+
+	// var_dump( get_intermediate_image_sizes() );
 }
-add_action( 'init', 'ajax_load_more_ajax_load_more_block_init' );
+add_action('init', 'ajax_load_more_ajax_load_more_block_init');
+
+
+
+// Ajax load more functionality
+
+add_action("wp_ajax_mak_more_posts", "mak_more_posts");
+add_action("wp_ajax_nopriv_mak_more_posts", "mak_more_posts");
+function mak_more_posts()
+{
+
+	$attributes = $_POST;
+	$displayThumbnail = (bool) $attributes['displayThumbnail'];
+	$displayDates = (bool) $attributes['displayDates'];
+	$displayExcerpt = (bool) $attributes['displayExcerpt'];
+	$currentPage = (int) $attributes['currentPage'];
+
+	$args = array(
+		'post_type'		=> sanitize_text_field($attributes['postType']),
+		'posts_per_page'	=> (int)$attributes['postPerPage'],
+		'post__not_in' => get_option("sticky_posts"),
+		'paged' => $currentPage + 1
+	);
+	$posts = new WP_Query($args);
+
+	ob_start();
+	while ($posts->have_posts()) : $posts->the_post();
+		require 'src/content-post.php';
+	endwhile;
+	$html = ob_get_clean();
+
+	wp_send_json_success(['html' => $html]);
+}

@@ -10,8 +10,8 @@
 	.mak-ajax-load-more-posts-list.grid {
 		list-style: none;
 		margin: 0;
-		padding: 20px;
-		gap: .5em;
+		padding: 0px;
+		gap: 1.5em;
 		display: grid;
 
 		@for $i from 2 through 4 {
@@ -25,6 +25,10 @@
 			.malm-thumbnail {
 				max-width: 100%;
 				border-radius: 5px;
+			}
+
+			.malm-date {
+				max-width: 100%;
 			}
 
 			h2 {
@@ -52,20 +56,25 @@
 			.malm-thumbnail {
 				max-width: 100%;
 				border-radius: 5px;
-				width: 200px;
+				height: auto;
+				
+			}
 
-				img {
-					max-width: 100%;
-					height: auto;
-				}
+			.malm-date {
+				max-width: 100%;
 			}
 
 			.malm-content {
 				h2 {
 					margin-top: 0;
+					margin-bottom: 10px;
 					font-size: 30px;
 					display: inline-flex;
 					vertical-align: top;
+				}
+
+				p {
+					margin: 0;
 				}
 			}
 		}

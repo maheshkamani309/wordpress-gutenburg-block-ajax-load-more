@@ -1,29 +1,6 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
-
-/**
- * To use wordpres default functionality
- */
 import { useSelect } from '@wordpress/data';
 import {
 	PanelBody,
@@ -34,17 +11,10 @@ import {
 	SelectControl
 } from '@wordpress/components';
 import { RawHTML } from '@wordpress/element';
+import { format } from 'date-fns';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {WPElement} Element to render.
- */
 export default function Edit({ attributes, setAttributes }) {
-	const { postType, postPerPage, displayThumbnail, listType, columns } = attributes;
+	const { postType, postPerPage, displayThumbnail, displayDates, displayExcerpt, infinateScroll, listType, columns } = attributes;
 
 	const { postTypes, posts } = useSelect(
 		(select) => {
@@ -82,6 +52,18 @@ export default function Edit({ attributes, setAttributes }) {
 							});
 						}}
 					/>
+
+					<QueryControls
+						numberOfItems={postPerPage}
+						onNumberOfItemsChange={(value) =>
+							setAttributes({ postPerPage: value })
+						}
+						minItems={1}
+						maxItems={20}
+					/>
+
+				</PanelBody>
+				<PanelBody title={__('Template Settings', 'ajax-load-more')}>
 					<SelectControl
 						label={__('View Type', 'ajax-load-more')}
 						value={listType}
@@ -112,14 +94,7 @@ export default function Edit({ attributes, setAttributes }) {
 							/>
 						) : ('')
 					}
-					<QueryControls
-						numberOfItems={postPerPage}
-						onNumberOfItemsChange={(value) =>
-							setAttributes({ postPerPage: value })
-						}
-						minItems={1}
-						maxItems={20}
-					/>
+
 
 					<PanelRow>
 						<ToggleControl
@@ -130,9 +105,36 @@ export default function Edit({ attributes, setAttributes }) {
 							}
 						/>
 					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={__('Show Dates', 'ajax-load-more')}
+							checked={displayDates}
+							onChange={() =>
+								setAttributes({ displayDates: !displayDates })
+							}
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={__('Show Excerpt', 'ajax-load-more')}
+							checked={displayExcerpt}
+							onChange={() =>
+								setAttributes({ displayExcerpt: !displayExcerpt })
+							}
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={__('Infinate Scroll', 'ajax-load-more')}
+							checked={infinateScroll}
+							onChange={() =>
+								setAttributes({ infinateScroll: !infinateScroll })
+							}
+						/>
+					</PanelRow>
 
 				</PanelBody>
-			</InspectorControls>
+			</InspectorControls >
 			<div {...useBlockProps()}>
 				<div className='mak-ajax-load-more'>
 					<ul className={`mak-ajax-load-more-posts-list  ${listType} ${listType == 'grid' ? 'columns-' + columns : ''}`}>
@@ -145,24 +147,42 @@ export default function Edit({ attributes, setAttributes }) {
 										post._embedded['wp:featuredmedia'] &&
 										post._embedded['wp:featuredmedia'][0] &&
 										<img
-											className='wp-block-author-box-ajax-load-more__post-thumbnail'
+											className='wp-block-author-box-ajax-load-more__post-thumbnail malm-thumbnail'
 											src={post._embedded['wp:featuredmedia'][0].source_url}
 											alt={post._embedded['wp:featuredmedia'][0].alt_text}
 										/>
 									}
-									<h2>
-										<a href={post.link}>
-											{
-												post.title.rendered ? (
-													<RawHTML>
-														{post.title.rendered}
-													</RawHTML>
-												) : (
-													$(post.title.raw)
-												)
-											}
-										</a>
-									</h2>
+									<div className='malm-content'>
+										<h2>
+											<a href={post.link}>
+												{
+													post.title.rendered ? (
+														<RawHTML>
+															{post.title.rendered}
+														</RawHTML>
+													) : (
+														$(post.title.raw)
+													)
+												}
+											</a>
+										</h2>
+										{
+											displayDates &&
+											post.date &&
+											<p className='malm-date'>
+												{format(new Date(Date.parse(post.date)), 'MMMM dd, yyyy')}
+											</p>
+										}
+
+										{
+											displayExcerpt &&
+											post.excerpt &&
+											post.excerpt?.rendered &&
+											<RawHTML>
+												{post.excerpt?.rendered}
+											</RawHTML>
+										}
+									</div>
 								</li>
 							)
 						})}
